@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ title }}</h1>
-    <h3>{{ entry }}</h3>
+    {{ entry | safe }}
     <form method="GET" action="edit">
         {% csrf_token %}
         <input type="hidden" value={{title}} name="title">

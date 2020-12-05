@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django import forms
 import random
 
+
 from . import util
 
 
@@ -38,7 +39,8 @@ def get_search(request):
     found = str_search(full_list, query)
     if type(found) == str:
         return render(request, "encyclopedia/search.html", {
-            "entry": util.get_entry(found)
+            "entry": util.get_entry(found),
+            "title": query
         })
     elif found == False:
         return render(request, "encyclopedia/404.html")
