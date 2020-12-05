@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django import forms
+import random
 
 from . import util
 
@@ -103,3 +104,13 @@ def edit_page(request):
         return render(request, "encyclopedia/edit.html", {
             "Form": form
         })
+
+
+def random_page(request):
+    entries = util.list_entries()
+    random.shuffle(entries)
+    title = entries[0]
+    return render(request, "encyclopedia/randomPage.html", {
+        "entry": util.get_entry(title),
+        "title": title
+    })
