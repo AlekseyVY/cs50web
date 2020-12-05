@@ -75,3 +75,31 @@ def new_page(request):
             "entry": "Here You can add new Page to WIKI!",
             "Form": wikiForm()
 })
+
+
+
+
+
+def edit_page(request):
+    if request.method == "POST":
+        form = wikiForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            util.save_entry(title, content)
+            return render(request, "encyclopedia/page.html", {
+                "entry": util.get_entry(title),
+                "title": title
+            })
+        else:
+            return render(request, "encyclopedia/edit.html", {
+                "Form": form
+            })
+    else:
+        form = wikiForm()
+        title = request.GET.get('title')
+        form.initial["title"] = title
+        form.initial["content"] = util.get_entry(title)
+        return render(request, "encyclopedia/edit.html", {
+            "Form": form
+        })
