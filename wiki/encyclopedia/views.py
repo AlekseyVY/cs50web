@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from django import forms
 
 from . import util
 
@@ -12,7 +13,8 @@ def index(request):
 def page(request, title):
     if util.get_entry(title):
         return render(request, "encyclopedia/page.html", {
-            "entry": util.get_entry(title)
+            "entry": util.get_entry(title),
+            "title": title
         })
     else:
         return render(request, "encyclopedia/404.html")
@@ -43,3 +45,33 @@ def get_search(request):
         return render(request, "encyclopedia/index.html", {
             "entries": found
     })
+
+class wikiForm(forms.Form):
+    title = forms.CharField()
+    content = forms.CharField(widget=forms.Textarea)
+
+def new_page(request):
+    if request.method == "POST":
+        form = wikiForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            if util.get_entry(title):
+                return render(request, "encyclopedia/error.html", {
+                    "error": title
+                })
+            else:
+                util.save_entry(title, content)
+                return render(request, "encyclopedia/page.html", {
+                    "entry": util.get_entry(title),
+                    "title": title
+                })
+        else:
+            return render(request, "encyclopedia/newPage.html", {
+                "Form": wikiForm()
+            })
+    else:
+        return render(request, "encyclopedia/newPage.html", {
+            "entry": "Here You can add new Page to WIKI!",
+            "Form": wikiForm()
+})
