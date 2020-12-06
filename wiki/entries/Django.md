@@ -1,3 +1,5 @@
-# Django
+<h1>Django</h1>
 
-Django is a web framework written using [Python](/wiki/Python) that allows for the design of web applications that generate [HTML](/wiki/HTML) dynamically.
+<p>Django is a web framework written using <a href="/wiki/Python">Python</a> that allows for the design of web applications that generate <a href="/wiki/HTML">HTML</a> dynamically.</p>
+
+<h1>Hello</h1>
