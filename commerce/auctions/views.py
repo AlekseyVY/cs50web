@@ -5,10 +5,15 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import User
-
+from .models import Item
+from .models import Bid
+from .models import Comment
 
 def index(request):
-    return render(request, "auctions/index.html")
+
+    return render(request, "auctions/index.html", {
+        "listing": Item.objects.all()
+    })
 
 
 def login_view(request):
@@ -61,3 +66,17 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+
+
+def Create_listing(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        description = request.POST["description"]
+        price = request.POST["price"]
+        category = request.POST["category"]
+        url_link = request.POST["url_link"]
+        item = Item.objects.create(title=title, description=description, price=price, category=category, url_link=url_link)
+        item.save()
+    return render(request, "auctions/create.html")
+
