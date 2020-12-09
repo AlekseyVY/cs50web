@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="card d-flex" style="width: 50rem;">
+        <img src="{{ item.url_link }}" class="card-img-top img-thumbnail" width="150px" height="auto" alt={{ item.title }}>
+        <div class="card-body ">
+            <h5 class="card-title">Title: {{ item.title }}</h5>
+            <p class="card-text">Price: {{ item.price }}</p>
+            <p class="card-text">Description: {{ item.description }}</p>
+            <p class="card-text">Category: {{ item.category }}</p>
+            <p class="card-text">Created: {{ item.date }}</p>  
+        </div>
+    </div>
+{% endblock %}

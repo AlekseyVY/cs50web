@@ -80,3 +80,11 @@ def Create_listing(request):
         item.save()
     return render(request, "auctions/create.html")
 
+
+
+def page(request, name):
+    item = Item.objects.get(title=name)
+    return render(request, "auctions/page.html", {
+        "item": item,
+        "title": name
+    })

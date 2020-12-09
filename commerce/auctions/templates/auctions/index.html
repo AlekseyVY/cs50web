@@ -2,14 +2,20 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-        {% for item in listing %}
-            <div>
-                <h1>Title: {{ item.title }}</h1>
-                <img src="{{ item.url_link }}" alt={{ item.title }}>
-                <p>Description: {{ item.description }}</p>
-                <h3>Category: {{ item.category }}</h3>
-                <h3>Created: {{ item.date }}</h3>
-                <h2>Price: {{ item.price }}</h2>
-            </div>
-        {% endfor %}
+    <div class="d-flex justify-content-between">
+            {% for item in listing %}
+                <a href="/{{ item.title }}">
+                    <div class="card d-flex" style="width: 18rem;">
+                        <img src="{{ item.url_link }}" class="card-img-top img-thumbnail" width="150px" height="auto" alt={{ item.title }}>
+                        <div class="card-body ">
+                            <h5 class="card-title">Title: {{ item.title }}</h5>
+                            <p class="card-text">Price: {{ item.price }}</p>
+                            <p class="card-text">Description: {{ item.description }}</p>
+                            <p class="card-text">Category: {{ item.category }}</p>
+                            <p class="card-text">Created: {{ item.date }}</p>  
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+    </div>
 {% endblock %}
